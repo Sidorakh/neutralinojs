@@ -109,7 +109,7 @@ void extractFile(const string &filename, const string &outputFilename) {
     fs::FileWriterOptions fileWriterOptions;
     fileWriterOptions.filename = outputFilename;
     fileWriterOptions.data = fileReaderResult.data;
-    fs::writeFile(fileWriterOptions);
+    fs::writeFile(fileWriterOptions,false);
 }
 
 fs::FileReaderResult getFile(const string &filename) {

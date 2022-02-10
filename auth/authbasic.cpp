@@ -37,7 +37,7 @@ void exportAuthInfo() {
         tempAuthInfoPath,
         __makeAuthInfoPayload().dump()
     };
-    fs::writeFile(fileWriterOptions);
+    fs::writeFile(fileWriterOptions,false);
 
     debug::log("INFO", "Auth info was exported to " + tempAuthInfoPath);
 }

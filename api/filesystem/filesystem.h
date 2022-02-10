@@ -32,7 +32,7 @@ struct FileStats {
 bool createDirectory(const string &path);
 bool removeFile(const string &filename);
 fs::FileReaderResult readFile(const string &filename);
-bool writeFile(const fs::FileWriterOptions &fileWriterOptions);
+bool writeFile(const fs::FileWriterOptions &fileWriterOptions, bool isBinary);
 string getDirectoryName(const string &filename);
 string getCurrentDirectory();
 string getFullPathFromRelative(const string &path);

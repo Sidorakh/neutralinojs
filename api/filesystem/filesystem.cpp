@@ -96,9 +96,13 @@ fs::FileReaderResult readFile(const string &filename) {
     return fileReaderResult;
 }
 
- bool writeFile(const fs::FileWriterOptions &fileWriterOptions) {
+ bool writeFile(const fs::FileWriterOptions &fileWriterOptions, bool isBinary) {
     json output;
-    ofstream writer(fileWriterOptions.filename);
+    int flags = ofstream::out;
+    if (isBinary) {
+        flags = flags | ofstream::binary;
+    }
+    ofstream writer(fileWriterOptions.filename, flags);
     if(!writer.is_open())
         return false;
     writer << fileWriterOptions.data;
@@ -229,7 +233,7 @@ json writeFile(const json &input) {
     fs::FileWriterOptions fileWriterOptions;
     fileWriterOptions.filename = input["path"].get<string>();
     fileWriterOptions.data = input["data"].get<string>();
-    if(fs::writeFile(fileWriterOptions))
+    if(fs::writeFile(fileWriterOptions,false))
         output["success"] = true;
     else
         output["error"] = helpers::makeErrorPayload("NE_FS_FILWRER",
@@ -246,7 +250,7 @@ json writeBinaryFile(const json &input) {
     fs::FileWriterOptions fileWriterOptions;
     fileWriterOptions.filename = input["path"].get<string>();
     fileWriterOptions.data = base64::from_base64(input["data"].get<string>());
-    if(fs::writeFile(fileWriterOptions))
+    if(fs::writeFile(fileWriterOptions,true))
         output["success"] = true;
     else
         output["error"] = helpers::makeErrorPayload("NE_FS_FILWRER",

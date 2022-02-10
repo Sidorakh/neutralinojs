@@ -76,7 +76,7 @@ json setData(const json &input) {
         fileWriterOptions.data = input["data"].get<string>();
         fileWriterOptions.filename = filename;
 
-        if(!fs::writeFile(fileWriterOptions)) {
+        if(!fs::writeFile(fileWriterOptions,false)) {
             output["error"] = helpers::makeErrorPayload("NE_ST_STKEYWE",
                                 "Unable to write data to key: " + key);
             return output;
